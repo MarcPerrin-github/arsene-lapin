@@ -5,6 +5,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Arsène — Bistrot & Bar · Montreuil</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Arsène est un bistrot &amp; bar à Montreuil, face au Parc de la République : cuisine créative et généreuse, vins naturels et terrasse, ouvert du matin jusqu'à minuit.">
+  <link rel="canonical" href="https://arsene-lapin.marcperrin-github.io/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Arsène — Bistrot & Bar · Montreuil">
+  <meta property="og:description" content="Arsène est un bistrot &amp; bar à Montreuil, face au Parc de la République : cuisine créative et généreuse, vins naturels et terrasse, ouvert du matin jusqu'à minuit.">
+  <meta property="og:url" content="https://arsene-lapin.marcperrin-github.io/">
+  <meta property="og:locale" content="fr_FR">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Arsène — Bistrot & Bar · Montreuil">
+  <meta name="twitter:description" content="Arsène est un bistrot &amp; bar à Montreuil, face au Parc de la République : cuisine créative et généreuse, vins naturels et terrasse, ouvert du matin jusqu'à minuit.">
+
+  <!-- Favicon: inline SVG monogram (terracotta bg, cream initial) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23C4633A'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='32' fill='%23F5EFE0' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Libre+Baskerville:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap"
@@ -124,6 +144,57 @@
     .nav-reserve:hover {
       background: var(--terracotta-dark) !important;
       color: white !important;
+    }
+
+    /* ─── ACCESSIBILITY: SKIP LINK ─── */
+    .vt-skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      background: #000;
+      color: #fff;
+      padding: .75em 1.25em;
+      z-index: 1000;
+      text-decoration: none;
+      font-size: .95rem;
+    }
+
+    .vt-skip-link:focus {
+      left: 0;
+    }
+
+    /* ─── MOBILE NAV TOGGLE ─── */
+    .vt-nav-toggle {
+      display: none;
+      background: none;
+      border: 0;
+      font-size: 1.5rem;
+      line-height: 1;
+      cursor: pointer;
+      color: var(--ink);
+    }
+
+    /* ─── DATA FALLBACK BANNER ─── */
+    .vt-data-fallback-banner {
+      background: #fff3cd;
+      color: #664d03;
+      border: 1px solid #ffe69c;
+      padding: .75em 1em;
+      border-radius: 6px;
+      margin: 0 0 1.5em;
+      font-size: .95rem;
+    }
+
+    /* ─── ALLERGEN DISCLAIMER ─── */
+    .vt-allergen-note {
+      font-size: .85rem;
+      opacity: .8;
+      margin-top: 1em;
+      line-height: 1.5;
+    }
+
+    .vt-allergen-note--footer {
+      margin-top: .5em;
     }
 
     /* ─── HERO ─── */
@@ -758,6 +829,17 @@
         display: none;
       }
 
+      .vt-nav-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #nav-links.vt-nav-open {
+        display: flex;
+        flex-direction: column;
+      }
+
       .about-grid,
       .menu-grid,
       .hours-grid,
@@ -780,9 +862,43 @@
       }
     }
   </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Arsène",
+    "url": "https://arsene-lapin.marcperrin-github.io/",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "54 ter, Rue Robespierre",
+      "addressLocality": "Montreuil-sous-Bois",
+      "postalCode": "93100",
+      "addressCountry": "FR"
+    },
+    "servesCuisine": "Bistrot",
+    "priceRange": "€€",
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        "opens": "09:00",
+        "closes": "23:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Sunday"],
+        "opens": "09:00",
+        "closes": "20:00"
+      }
+    ]
+  }
+  </script>
 </head>
 
 <body>
+
+  <a class="vt-skip-link" href="#main-content">Aller au contenu principal</a>
 
   <!-- ══════════════════════════════════════
      CONFIGURATION — modifier ces valeurs
@@ -802,18 +918,15 @@
     //  ÉTAPE 2 — Publier chaque onglet en CSV :
     //    Fichier > Partager > Publier sur le web
     //    Choisir l'onglet + format "Valeurs séparées par des virgules (.csv)"
-    //    Copier l'URL et la coller ci-dessous
-    //
-    //  ÉTAPE 3 — Passer DEMO_MODE à false
+    //    Copier l'URL et la coller ci-dessous dans CONFIG
     // ─────────────────────────────────────────────────────────────
 
-    const SHEETS_URL_MENU = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQxhImrZR1LkCHMRnWgxbuxZKXbozJxbE8WnGwuoISWpH-gpVpsEq5D1rzdYSSqgKze_qYsMRfUhvm2/pub?gid=0&single=true&output=csv";
-    const SHEETS_URL_HORAIRES = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQxhImrZR1LkCHMRnWgxbuxZKXbozJxbE8WnGwuoISWpH-gpVpsEq5D1rzdYSSqgKze_qYsMRfUhvm2/pub?gid=14978495&single=true&output=csv";
+    const CONFIG = {
+      menuCSV: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQxhImrZR1LkCHMRnWgxbuxZKXbozJxbE8WnGwuoISWpH-gpVpsEq5D1rzdYSSqgKze_qYsMRfUhvm2/pub?gid=0&single=true&output=csv",
+      hoursCSV: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQxhImrZR1LkCHMRnWgxbuxZKXbozJxbE8WnGwuoISWpH-gpVpsEq5D1rzdYSSqgKze_qYsMRfUhvm2/pub?gid=14978495&single=true&output=csv",
+    };
 
-    // true = données d'exemple | false = Google Sheets
-    const DEMO_MODE = false;
-
-    // ── Données d'exemple (actives quand DEMO_MODE = true) ────────
+    // ── Données de repli (utilisées si le Google Sheet est vide/indisponible) ──
     const DEMO_MENU = [
       { categorie: "midi", nom: "Terrine maison", description: "chutney d'oignon, pain grillé", prix: "7 €" },
       { categorie: "midi", nom: "Velouté du moment", description: "selon arrivage, crème fraîche", prix: "8 €" },
@@ -857,14 +970,17 @@
       </svg>
       <span class="nav-logo-text">Arsène</span>
     </a>
-    <ul class="nav-links">
+    <ul class="nav-links" id="nav-links">
       <li><a href="#about">L'adresse</a></li>
       <li><a href="#menu">La carte</a></li>
       <li><a href="#ambiance">L'ambiance</a></li>
       <li><a href="#horaires">Horaires</a></li>
       <li><a href="#horaires" class="nav-reserve">Réserver</a></li>
     </ul>
+    <button class="vt-nav-toggle" id="vt-nav-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav-links">☰</button>
   </nav>
+
+  <main id="main-content">
 
   <!-- HERO -->
   <section class="hero">
@@ -975,6 +1091,10 @@
         <p class="section-intro">Produits frais, saisons respectées, cuisine ouverte.</p>
       </div>
 
+      <p id="vt-data-fallback-banner" class="vt-data-fallback-banner" hidden>
+        ⚠️ Contenu de démonstration affiché — données Google Sheets non connectées ou indisponibles.
+      </p>
+
       <div id="setup-banner-menu" class="setup-banner" style="display:none">
         <strong>⚙️ Mode démonstration</strong> — Ces données sont des exemples.<br>
         Pour afficher votre carte en temps réel, remplacez <code>COLLER_URL_CSV_ONGLET_MENU_ICI</code> par l'URL CSV de
@@ -990,6 +1110,13 @@
         <button class="menu-tab" onclick="switchTab('soir')">Soir</button>
         <button class="menu-tab" onclick="switchTab('boissons')">Boissons</button>
       </div>
+
+      <p class="vt-allergen-note">
+        Nos plats peuvent contenir des traces des 14 allergènes réglementés par l'UE
+        (gluten, crustacés, œufs, poissons, arachides, soja, lait, fruits à coque,
+        céleri, moutarde, graines de sésame, sulfites, lupin, mollusques).
+        Renseignez-vous auprès du personnel pour toute allergie ou intolérance alimentaire.
+      </p>
 
       <div class="menu-panel active" id="panel-midi">
         <div class="menu-loading">Chargement…</div>
@@ -1130,6 +1257,8 @@
     </div>
   </section>
 
+  </main>
+
   <!-- FOOTER -->
   <footer>
     <div class="footer-logo-wrap">
@@ -1148,6 +1277,9 @@
       <a href="#horaires">Réserver</a>
     </div>
     <p class="footer-copy">54 ter Rue Robespierre, 93100 Montreuil · Tous droits réservés</p>
+    <p class="vt-allergen-note vt-allergen-note--footer">
+      Allergènes : liste des 14 allergènes UE disponible sur demande auprès du personnel.
+    </p>
   </footer>
 
   <!-- ══════════════════════════════════════
@@ -1205,28 +1337,41 @@
       boissons: 'Demandez notre sélection du moment — elle change souvent.',
     };
 
+    async function loadCSV(url) {
+      const res = await fetch(url, { cache: 'no-store' });
+      const txt = await res.text();
+      return parseCSV(txt);
+    }
+
+    function showDataFallbackBanner() {
+      const banner = document.getElementById('vt-data-fallback-banner');
+      if (banner) banner.hidden = false;
+    }
+
     async function loadData() {
       let menuData, horairesData;
+      let menuOK = false, hoursOK = false;
 
-      if (DEMO_MODE) {
-        document.getElementById('setup-banner-menu').style.display = 'block';
-        document.getElementById('setup-banner-hours').style.display = 'block';
-        menuData = DEMO_MENU;
-        horairesData = DEMO_HORAIRES;
-      } else {
+      if (CONFIG.menuCSV) {
         try {
-          const [mRes, hRes] = await Promise.all([fetch(SHEETS_URL_MENU), fetch(SHEETS_URL_HORAIRES)]);
-          menuData = parseCSV(await mRes.text());
-          horairesData = parseCSV(await hRes.text());
-
+          menuData = await loadCSV(CONFIG.menuCSV);
+          menuOK = true;
         } catch (e) {
-          ['panel-midi', 'panel-soir', 'panel-boissons'].forEach(id => {
-            document.getElementById(id).innerHTML = `<div class="menu-error">Impossible de charger la carte.<br>Vérifiez l'URL Google Sheets et les droits de publication.</div>`;
-          });
-          document.getElementById('hours-table-container').innerHTML = `<div class="menu-error">Impossible de charger les horaires.</div>`;
-          return;
+          console.warn('Menu : repli sur le contenu de démonstration.', e);
         }
       }
+      if (CONFIG.hoursCSV) {
+        try {
+          horairesData = await loadCSV(CONFIG.hoursCSV);
+          hoursOK = true;
+        } catch (e) {
+          console.warn('Horaires : repli sur le contenu de démonstration.', e);
+        }
+      }
+
+      if (!menuOK) menuData = DEMO_MENU;
+      if (!hoursOK) horairesData = DEMO_HORAIRES;
+      if (!menuOK || !hoursOK) showDataFallbackBanner();
 
       // Badge date
       const badge = document.getElementById('menu-date-badge');
@@ -1245,6 +1390,26 @@
     }
 
     loadData();
+
+    (function () {
+      var toggle = document.getElementById('vt-nav-toggle');
+      var links = document.getElementById('nav-links');
+      if (!toggle || !links) return;
+
+      function setOpen(open) {
+        links.classList.toggle('vt-nav-open', open);
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+      }
+
+      toggle.addEventListener('click', function () {
+        setOpen(!links.classList.contains('vt-nav-open'));
+      });
+
+      links.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () { setOpen(false); });
+      });
+    })();
   </script>
 </body>
 
