@@ -204,11 +204,16 @@
       max-width: 640px;
     }
 
+    .vt-allergen-table-wrap {
+      max-width: 640px;
+      overflow-x: auto;
+      margin: 1.25em 0 0;
+    }
+
     .vt-allergen-table {
       width: 100%;
-      max-width: 640px;
+      min-width: 360px;
       border-collapse: collapse;
-      margin: 1.25em 0 0;
       font-size: .9rem;
     }
 
@@ -1198,12 +1203,14 @@
         Détail par plat ci-dessous — renseignez-vous auprès du personnel pour toute
         allergie ou intolérance alimentaire.
       </p>
-      <table id="vt-allergen-table" class="vt-allergen-table" hidden>
-        <thead>
-          <tr><th scope="col">Plat</th><th scope="col">Allergènes</th></tr>
-        </thead>
-        <tbody id="vt-allergen-table-body"></tbody>
-      </table>
+      <div class="vt-allergen-table-wrap" id="vt-allergen-table-wrap" hidden>
+        <table id="vt-allergen-table" class="vt-allergen-table">
+          <thead>
+            <tr><th scope="col">Plat</th><th scope="col">Allergènes</th></tr>
+          </thead>
+          <tbody id="vt-allergen-table-body"></tbody>
+        </table>
+      </div>
       <p id="vt-allergen-empty" class="vt-allergen-empty">
         Le détail des allergènes par plat n'est pas encore renseigné pour ce menu —
         merci de vous renseigner auprès du personnel.
@@ -1398,12 +1405,12 @@
     }
 
     function renderAllergenList(dishes) {
-      const table = document.getElementById('vt-allergen-table');
+      const wrap = document.getElementById('vt-allergen-table-wrap');
       const tbody = document.getElementById('vt-allergen-table-body');
       const empty = document.getElementById('vt-allergen-empty');
-      if (!table || !tbody || !empty) return;
+      if (!wrap || !tbody || !empty) return;
       if (!dishes || !dishes.length) {
-        table.hidden = true;
+        wrap.hidden = true;
         empty.hidden = false;
         return;
       }
@@ -1425,7 +1432,7 @@
         tr.appendChild(tdAllergenes);
         tbody.appendChild(tr);
       });
-      table.hidden = false;
+      wrap.hidden = false;
       empty.hidden = true;
     }
 
